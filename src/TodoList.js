@@ -1,5 +1,5 @@
 import React,{Component,Fragment} from 'react'
-
+import './style.css'
 class TodoList extends Component{
     //constructor 在组件创建的第一个时刻自动被执行
     constructor(props){
@@ -17,8 +17,8 @@ class TodoList extends Component{
     })
     }
     handleKeyUp(e){
-        console.log(e.keyCode)  
-        if(e.keyCode===13){
+        // console.log(e.keyCode)  
+        if(e.keyCode===13&&e.target.value!==''){
             const list =[...this.state.list,this.state.inputValue]
             this.setState({
                 list,
@@ -37,6 +37,7 @@ class TodoList extends Component{
         return (
             <Fragment>
              <input 
+              className="input" 
              value={this.state.inputValue}
              onChange={this.handleInputChange.bind(this)}
              onKeyUp={this.handleKeyUp.bind(this)}
@@ -45,11 +46,12 @@ class TodoList extends Component{
              <ul>
                  {this.state.list.map((value,index)=>{
                  return (
-                    <li 
+                    <li
+                    dangerouslySetInnerHTML={{__html:value}}
                     key={index}
                     onClick={this.handleItemClick.bind(this,index)}
                     >
-                        {value}
+                        {/* {value} */}
                         </li>
                  )
                  })
